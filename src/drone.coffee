@@ -8,7 +8,7 @@
 # Commands:
 #   hubot drone ping
 #   hubot drone build
-#
+#   drone repo
 # Notes:
 #   <optional notes required for the script>
 #
