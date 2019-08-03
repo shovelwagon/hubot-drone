@@ -6,7 +6,8 @@
 #   HUBOT_DRONE_TOKEN
 #
 # Commands:
-#   hubot drone build - allows interaction with Drone CI via the API
+#   hubot drone ping
+#   hubot drone build
 #
 # Notes:
 #   <optional notes required for the script>
@@ -18,6 +19,8 @@ HUBOT_DRONE_TOKEN = process.env.HUBOT_DRONE_TOKEN
 HUBOT_DRONE_URL = process.env.HUBOT_DRONE_URL
 
 module.exports = (robot) ->
+  robot.hear /^drone ping/i, (msg) ->
+    msg.send "pong"
   robot.hear /^drone build restart (.*\/.*) (\d+)/i, (msg) ->
     console.log(msg.match[1])
     console.log(msg.match[2])
