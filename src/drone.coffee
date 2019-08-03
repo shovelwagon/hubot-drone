@@ -25,6 +25,26 @@ module.exports = (robot) ->
     restartBuild(msg, HUBOT_DRONE_URL, HUBOT_DRONE_TOKEN, msg.match[1], msg.match[2])
   robot.hear /^drone build cancel (.*\/.*) (\d+)/i, (msg) ->
     cancelBuild(msg, HUBOT_DRONE_URL, HUBOT_DRONE_TOKEN, msg.match[1], msg.match[2])
+  robot.hear /^drone repo disable (.*\/.*)/i, (msg) ->
+    disableRepo(msg, HUBOT_DRONE_URL, HUBOT_DRONE_TOKEN, msg.match[1])
+  robot.hear /^drone repo enable (.*\/.*)/i, (msg) ->
+    enableRepo(msg, HUBOT_DRONE_URL, HUBOT_DRONE_TOKEN, msg.match[1])
+
+disableBuild = (msg, drone_url, drone_token, repo) ->
+    url = "#{drone_url}/api/repos/#{repo}"
+    console.log(url)
+    repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").delete(null) (err, res, body) ->
+        resp = JSON.parse(body)
+        console.log(resp)
+        msg.send "disabled repo #{drone_url}/#{repo}"
+
+enableBuild = (msg, drone_url, drone_token, repo) ->
+    url = "#{drone_url}/api/repos/#{repo}"
+    console.log(url)
+    repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").post(null) (err, res, body) ->
+        resp = JSON.parse(body)
+        console.log(resp)
+        msg.send "enabled repo #{drone_url}/#{repo}"
 
 restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
     url = "#{drone_url}/api/repos/#{repo}/builds/#{build_number}"
