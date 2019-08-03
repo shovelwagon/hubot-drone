@@ -18,11 +18,10 @@ HUBOT_DRONE_TOKEN = process.env.HUBOT_DRONE_TOKEN
 HUBOT_DRONE_URL = process.env.HUBOT_DRONE_URL
 
 module.exports = (robot) ->
-  robot.hear /^drone build restart (.*\/.*) (\d+) /i, (msg) ->
-    project = msg.match[1]
-    processBuild(msg, project)
+  robot.respond /^drone build restart (.*\/.*) (\d+)/i, (msg) ->
+    restartBuild(msg, HUBOT_DRONE_URL, HUBOT_DRONE_TOKEN, msg.match[1], msg.match[2])
 
-restartBuild = (robot, drone_url, drone_token, repo, build_number) ->
-    repositories = robot.http("#{drone_url}/api/repos/#{repo}/builds/#{build_number}").post(null).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}") (err, res, body) ->
+restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
+    repositories = msg.http("#{drone_url}/api/repos/#{repo}/builds/#{build_number}").post(null).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}") (err, res, body) ->
         resp = JSON.parse(body)
-        robot.reply "started build #{drone_url}/#{repo}/#{resp["number"]}"
+        msg.send "started build #{drone_url}/#{repo}/#{resp["number"]}"
