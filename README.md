@@ -22,3 +22,6 @@ hubot>> started build https://drone.example.com/foo/bar/15
 HUBOT_DRONE_URL
 
 HUBOT_DRONE_TOKEN
+
+## todo
+* add error handling

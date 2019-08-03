@@ -22,9 +22,9 @@ module.exports = (robot) ->
   robot.hear /^drone ping/i, (msg) ->
     msg.send "pong"
   robot.hear /^drone build restart (.*\/.*) (\d+)/i, (msg) ->
-    console.log(msg.match[1])
-    console.log(msg.match[2])
     restartBuild(msg, HUBOT_DRONE_URL, HUBOT_DRONE_TOKEN, msg.match[1], msg.match[2])
+  robot.hear /^drone build cancel (.*\/.*) (\d+)/i, (msg) ->
+    cancelBuild(msg, HUBOT_DRONE_URL, HUBOT_DRONE_TOKEN, msg.match[1], msg.match[2])
 
 restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
     url = "#{drone_url}/api/repos/#{repo}/builds/#{build_number}"
@@ -33,3 +33,11 @@ restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
         resp = JSON.parse(body)
         console.log(resp)
         msg.send "started build #{drone_url}/#{repo}/#{resp["number"]}"
+
+cancelBuild = (msg, drone_url, drone_token, repo, build_number) ->
+    url = "#{drone_url}/api/repos/#{repo}/builds/#{build_number}"
+    console.log(url)
+    repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").delete(null) (err, res, body) ->
+        resp = JSON.parse(body)
+        console.log(resp)
+        msg.send "cancelled build #{drone_url}/#{repo}/#{build_number}"
