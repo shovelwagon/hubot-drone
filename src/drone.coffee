@@ -29,7 +29,7 @@ module.exports = (robot) ->
 restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
     url = "#{drone_url}/api/repos/#{repo}/builds/#{build_number}"
     console.log(url)
-    repositories = msg.http(url).post(null).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}") (err, res, body) ->
+    repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").post(null) (err, res, body) ->
         resp = JSON.parse(body)
         console.log(resp)
         msg.send "started build #{drone_url}/#{repo}/#{resp["number"]}"
