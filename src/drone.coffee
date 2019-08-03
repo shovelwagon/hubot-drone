@@ -18,7 +18,7 @@ HUBOT_DRONE_TOKEN = process.env.HUBOT_DRONE_TOKEN
 HUBOT_DRONE_URL = process.env.HUBOT_DRONE_URL
 
 module.exports = (robot) ->
-  robot.respond /^drone build restart (.*\/.*) (\d+)/i, (msg) ->
+  robot.hear /^drone build restart (.*\/.*) (\d+)/i, (msg) ->
     restartBuild(msg, HUBOT_DRONE_URL, HUBOT_DRONE_TOKEN, msg.match[1], msg.match[2])
 
 restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
