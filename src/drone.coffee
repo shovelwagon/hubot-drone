@@ -43,6 +43,7 @@ disableRepo = (msg, drone_url, drone_token, repo) ->
     console.log(url)
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").delete(null) (err, res, body) ->
         resp = JSON.parse(body)
+        console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         msg.send "disabled repo #{drone_url}/#{repo}"
 
@@ -51,6 +52,7 @@ enableRepo = (msg, drone_url, drone_token, repo) ->
     console.log(url)
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").post(null) (err, res, body) ->
         resp = JSON.parse(body)
+        console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         msg.send "enabled repo #{drone_url}/#{repo}"
 
@@ -59,6 +61,7 @@ repairRepo = (msg, drone_url, drone_token, repo) ->
     console.log(url)
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").post(null) (err, res, body) ->
         resp = JSON.parse(body)
+        console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         msg.send "repaired repo #{drone_url}/#{repo}"
 
@@ -67,6 +70,7 @@ restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
     console.log(url)
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").post(null) (err, res, body) ->
         resp = JSON.parse(body)
+        console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         msg.send "started build #{drone_url}/#{repo}/#{resp["number"]}"
 
@@ -75,5 +79,6 @@ cancelBuild = (msg, drone_url, drone_token, repo, build_number) ->
     console.log(url)
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").delete(null) (err, res, body) ->
         resp = JSON.parse(body)
+        console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         msg.send "cancelled build #{drone_url}/#{repo}/#{build_number}"
