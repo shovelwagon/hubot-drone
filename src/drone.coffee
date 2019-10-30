@@ -24,37 +24,6 @@ HUBOT_DRONE_URL = process.env.HUBOT_DRONE_URL
 console.log(HUBOT_DRONE_TOKEN)
 console.log(HUBOT_DRONE_URL)
 
-build_acions = {
-  "restart": {
-    "method": "post",
-    "message": ""
-  },
-  "cancel": {
-    "method": "delete",
-    "message": ""
-  }.
-  "info": {
-    "method": "get",
-    "message": ""
-  }
-}
-
-repo_acions = {
-  "enable": {
-    "method": "post",
-    "message": ""
-  },
-  "disable": {
-    "method": "delete",
-    "message": ""
-  }.
-  "repair": {
-    "method": "get",
-    "message": "",
-    "path" : "/repair"
-  }
-}
-
 module.exports = (robot) ->
   robot.hear /^drone ping/i, (msg) ->
     msg.send "pong"
