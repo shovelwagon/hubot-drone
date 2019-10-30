@@ -21,9 +21,6 @@
 HUBOT_DRONE_TOKEN = process.env.HUBOT_DRONE_TOKEN
 HUBOT_DRONE_URL = process.env.HUBOT_DRONE_URL
 
-console.log(HUBOT_DRONE_TOKEN)
-console.log(HUBOT_DRONE_URL)
-
 module.exports = (robot) ->
   robot.hear /^drone ping/i, (msg) ->
     msg.send "pong"
@@ -44,7 +41,7 @@ disableRepo = (msg, drone_url, drone_token, repo) ->
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").delete(null) (err, res, body) ->
         resp = JSON.parse(body)
         console.log(msg.message.user.name.toLowerCase())
-        console.log(resp)
+        console.log(body)
         if res.statusCode isnt 200
           msg.send "disabled repo #{repo}: False"
         else
@@ -56,7 +53,7 @@ enableRepo = (msg, drone_url, drone_token, repo) ->
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").post(null) (err, res, body) ->
         resp = JSON.parse(body)
         console.log(msg.message.user.name.toLowerCase())
-        console.log(resp)
+        console.log(body)
         if res.statusCode isnt 200
           msg.send "enabled repo #{repo}: False"
         else
@@ -68,7 +65,7 @@ repairRepo = (msg, drone_url, drone_token, repo) ->
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").post(null) (err, res, body) ->
         resp = JSON.parse(body)
         console.log(msg.message.user.name.toLowerCase())
-        console.log(resp)
+        console.log(body)
         if res.statusCode isnt 200
           msg.send "repaired repo #{repo}: False"
         else
@@ -80,7 +77,7 @@ restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").post(null) (err, res, body) ->
         resp = JSON.parse(body)
         console.log(msg.message.user.name.toLowerCase())
-        console.log(resp)
+        console.log(body)
         if res.statusCode isnt 200
           msg.send "started build #{repo}/#{resp["number"]}: False"
         else
@@ -92,7 +89,7 @@ cancelBuild = (msg, drone_url, drone_token, repo, build_number) ->
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").delete(null) (err, res, body) ->
         resp = JSON.parse(body)
         console.log(msg.message.user.name.toLowerCase())
-        console.log(resp)
+        console.log(body)
         if res.statusCode isnt 200
           msg.send "cancelled build #{repo}/#{build_number}: False"
         else
