@@ -46,9 +46,9 @@ disableRepo = (msg, drone_url, drone_token, repo) ->
         console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         if res.statusCode isnt 200
-          msg.send "disabled repo #{drone_url}/#{repo}: False"
+          msg.send "disabled repo #{repo}: False"
         else
-          msg.send "disabled repo #{drone_url}/#{repo}: True"
+          msg.send "disabled repo #{repo}: True"
 
 enableRepo = (msg, drone_url, drone_token, repo) ->
     url = "#{drone_url}/api/repos/#{repo}"
@@ -58,9 +58,9 @@ enableRepo = (msg, drone_url, drone_token, repo) ->
         console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         if res.statusCode isnt 200
-          msg.send "enabled repo #{drone_url}/#{repo}: False"
+          msg.send "enabled repo #{repo}: False"
         else
-          msg.send "enabled repo #{drone_url}/#{repo}: True"
+          msg.send "enabled repo #{repo}: True"
 
 repairRepo = (msg, drone_url, drone_token, repo) ->
     url = "#{drone_url}/api/repos/#{repo}/repair"
@@ -70,9 +70,9 @@ repairRepo = (msg, drone_url, drone_token, repo) ->
         console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         if res.statusCode isnt 200
-          msg.send "repaired repo #{drone_url}/#{repo}: False"
+          msg.send "repaired repo #{repo}: False"
         else
-          msg.send "repaired repo #{drone_url}/#{repo}: True"
+          msg.send "repaired repo #{repo}: True"
 
 restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
     url = "#{drone_url}/api/repos/#{repo}/builds/#{build_number}"
@@ -82,9 +82,9 @@ restartBuild = (msg, drone_url, drone_token, repo, build_number) ->
         console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         if res.statusCode isnt 200
-          msg.send "started build #{drone_url}/#{repo}/#{resp["number"]}: False"
+          msg.send "started build #{repo}/#{resp["number"]}: False"
         else
-          msg.send "started build #{drone_url}/#{repo}/#{resp["number"]}: True"
+          msg.send "started build #{repo}/#{resp["number"]}: True"
 
 cancelBuild = (msg, drone_url, drone_token, repo, build_number) ->
     url = "#{drone_url}/api/repos/#{repo}/builds/#{build_number}"
@@ -94,6 +94,6 @@ cancelBuild = (msg, drone_url, drone_token, repo, build_number) ->
         console.log(msg.message.user.name.toLowerCase())
         console.log(resp)
         if res.statusCode isnt 200
-          msg.send "cancelled build #{drone_url}/#{repo}/#{build_number}: False"
+          msg.send "cancelled build #{repo}/#{build_number}: False"
         else
-          msg.send "cancelled build #{drone_url}/#{repo}/#{build_number}: True"
+          msg.send "cancelled build #{repo}/#{build_number}: True"
