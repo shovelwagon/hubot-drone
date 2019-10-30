@@ -44,6 +44,7 @@ disableRepo = (msg, drone_url, drone_token, repo) ->
     repositories = msg.http(url).header("Content-Type", "application/json").header("Authorization", "Bearer #{drone_token}").delete(null) (err, res, body) ->
         resp = JSON.parse(body)
         console.log(msg.message.user.name.toLowerCase())
+        consolr.log(res.statusCode)
         console.log(resp)
         msg.send "disabled repo #{drone_url}/#{repo}"
 
